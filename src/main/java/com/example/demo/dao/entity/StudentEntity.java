@@ -1,18 +1,27 @@
-package com.example.demo.model;
+package com.example.demo.dao.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
-public class Student {
+@Entity
+@Table(name = "students", schema = "matrix_student")
+public class StudentEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
     private Integer age;
     private LocalDate birthDate;
 
-    public Student() {
+    public StudentEntity() {
     }
 
-    public Student(Integer id, String firstName, String lastName, Integer age, LocalDate birthDate) {
+    public StudentEntity(Integer id, String firstName, String lastName, Integer age, LocalDate birthDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,5 +67,16 @@ public class Student {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }

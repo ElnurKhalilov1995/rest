@@ -1,36 +1,40 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.entity.StudentEntity;
+import com.example.demo.dao.repository.StudentRepository;
+import com.example.demo.mapper.StudentMapper;
 import com.example.demo.model.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
-public class MainServiceImpl implements MainService{
+public class MainServiceImpl implements MainService, AdditionalService{
+
+    private StudentRepository studentRepository;
+    private StudentMapper studentMapper;
+
+    public MainServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
+        this.studentRepository = studentRepository;
+        this.studentMapper = studentMapper;
+    }
+
     @Override
     public Student getStudentById(int id) {
-        var students = new ArrayList<Student>();
-        var student1 = new Student(1, "Elnur", "616.2");
-        var student2 = new Student(2, "Emil", "616.3");
-        var student3 = new Student(3, "Ilaha", "616.4");
-        var student4 = new Student(4, "Fatima", "616.5");
-        var student5 = new Student(5, "Nicat", "616.6");
+        Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(id);
+        var student = optionalStudentEntity.orElseThrow(RuntimeException::new);
 
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
-        students.add(student4);
-        students.add(student5);
-
-        var student = students.stream().filter((s) ->
-            s.getId() == id
-        ).findAny().get();
-
-        return student;
+        return studentMapper.mapToDto(student);
     }
 
     @Override
     public void saveStudent(Student student) {
         System.out.println("Student by id " + student.getId() + " is saved");
+    }
+
+    @Override
+    public String getAdditionalInfo() {
+        return null;
     }
 }
