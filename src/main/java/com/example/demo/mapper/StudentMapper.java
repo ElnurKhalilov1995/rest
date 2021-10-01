@@ -9,11 +9,20 @@ public class StudentMapper {
 
    public Student mapToDto(StudentEntity studentEntity) {
        return new Student(
-               studentEntity.getId(),
                studentEntity.getFirstName(),
                studentEntity.getLastName(),
                studentEntity.getAge(),
                studentEntity.getBirthDate()
+       );
+   }
+
+   public StudentEntity mapToEntity(Student student) {
+       return new StudentEntity(
+               null,
+               student.getFirstName(),
+               student.getLastName(),
+               student.getAge(),
+               student.getBirthDate()
        );
    }
 }

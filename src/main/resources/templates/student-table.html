@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<table class="table table-hover table-border">
+    <thead class="table table-dark">
+    <td >First Name</td>
+    <td>Last Name</td>
+    <td>Age</td>
+    <td>Birth Date</td>
+    </thead>
+    <tbody th:each = "student : ${students}">
+            <td th:text = "${student.firstName}"></td>
+            <td th:text = "${student.lastName}"></td>
+            <td th:text = "${student.age}">
+            <td th:text = "${student.birthDate}">
+    </tbody>
+</table>
+<button type="button"><a th:href="@{/students-table/student-update}">Add student</a></button>
+</body>
+</html>

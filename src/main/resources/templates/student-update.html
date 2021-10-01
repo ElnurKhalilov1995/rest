@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/students-table/add}" method="post">
+            <input type="text" name="firstName" placeholder="First Name"/><br>
+            <input type="text" name="lastName" placeholder="Last Name"/><br>
+            <input type="number" name="age" placeholder="Age"/><br>
+<!--            <input type="date" name="birthDate" placeholder="Birth Date"/><br>-->
+            <input type="submit" />
+        </form>
+    </div>
+</body>
+</html>

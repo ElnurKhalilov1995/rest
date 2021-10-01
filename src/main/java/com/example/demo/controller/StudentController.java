@@ -2,30 +2,42 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Student;
 import com.example.demo.service.MainService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController
-@RequestMapping("/students")
+@Controller
+@RequestMapping("/students-table")
 public class StudentController {
-
-    private final MainService mainService;
+    private MainService mainService;
 
     public StudentController(MainService mainService) {
         this.mainService = mainService;
     }
 
-    @GetMapping("/{studentId}")
-    public Student getStudentById(@PathVariable("studentId") int id){
-        return mainService.getStudentById(id);
+    @GetMapping(value = {"", "/"})
+    public String getStudents(Model model) {
+        var students = mainService.getStudents();
+        model.addAttribute("students", students);
+        return "student-table";
     }
 
-    @PostMapping
-    public void saveStudent(@RequestBody Student student) {
+    @PostMapping("/add")
+    public String saveStudent(@RequestBody Student student, Model model) {
+        System.out.println(student.getFirstName());
         mainService.saveStudent(student);
+        var students = mainService.getStudents();
+        model.addAttribute("students", students);
+
+        return "student-table";
+    }
+
+    @GetMapping("/student-update")
+    public String studentUpdate() {
+        return "student-update";
     }
 }

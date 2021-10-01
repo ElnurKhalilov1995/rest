@@ -7,7 +7,9 @@ import com.example.demo.model.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MainServiceImpl implements MainService, AdditionalService{
@@ -30,11 +32,24 @@ public class MainServiceImpl implements MainService, AdditionalService{
 
     @Override
     public void saveStudent(Student student) {
-        System.out.println("Student by id " + student.getId() + " is saved");
+        var studentEntity = studentMapper.mapToEntity(student);
+        studentRepository.save(studentEntity);
+    }
+
+    @Override
+    public List<Student> getStudents() {
+        var students = studentRepository.
+                findAll().stream().
+                map(studentEntity -> studentMapper.mapToDto(studentEntity))
+                .collect(Collectors.toList());
+
+        return students;
     }
 
     @Override
     public String getAdditionalInfo() {
         return null;
     }
+
+
 }

@@ -12,8 +12,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer id, String firstName, String lastName, Integer age, LocalDate birthDate) {
-        this.id = id;
+    public Student(String firstName, String lastName, Integer age, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
